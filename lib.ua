@@ -91,11 +91,11 @@ Mul ← (
   | Zero °1(≍Zero◌)
   | ⋅Inf °1(≍Inf)
   | Inf °1(≍Inf◌)
-  | ⍜⊢⋅∘⊃(Mul′∩⍜⊢⋅1|×∩⊢))
+  | Nub⍜⊢⋅∘⊃(Mul′∩⍜⊢⋅1|×∩⊢))
 )
 
 # b mod a - scales for very large numbers.
-Mod ← ◌⍢(⟜(Sub⊂1↘2⍢(Mul10|Gt))|Gt) ∩Coerce
+Mod ← Nub◌⍢(⟜(Sub⊂1↘2⍢(Mul10|Gt))|Gt) ∩Coerce
 
 # Do the core division. Slow for very different numbers.
 BaseDiv ↚ Coerce◌◌⍢(⊙⊙+₁⟜Sub|Ge) ⊙⊙0 ∩Coerce
@@ -124,7 +124,7 @@ Div ← (
   | ⋅Zero °1(≍Inf)
   | Zero °1(≍Zero◌)
   | Inf °1(≍Inf◌)
-  | ⍜⊢⋅∘⊃(PosDiv∩⍜⊢⋅1|×∩⊢))
+  | Nub⍜⊢⋅∘⊃(PosDiv∩⍜⊢⋅1|×∩⊢))
 )
 # base exponent
 Pow ← ⍥Mul⊙(⟜∘)-1°Big∩Coerce
