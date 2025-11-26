@@ -20,7 +20,7 @@ Big ← ⌅(
 # String <-> BigInt
 BigS ← ⌅(
   ⨬(⊂1⇌≡⋕|⊂¯1⇌≡⋕↘1)=@-⊸⊢
-| ⍥(⊂@-)¯⊃(⊢|+@0⇌↘₁)
+| ⍥(⊂@-)=¯ 1⊃(⊢|+@0⇌↘₁)
 )
 # Ensure we're getting a BigInt, not a plain int.
 Coerce ↚ ⍥Big=0⧻⊸△
