@@ -135,6 +135,11 @@ Pow ← ⍥Mul⊙(⟜∘)-1°Big∩Coerce
 # e.g. 'Addition-chain exponentiation'
 # Pow ← ⊙◌◌⍢(Sub One⊙⊸Mul|Lt Zero) Sub One⊙(⟜∘)∩Coerce
 
+# Fast powmod based on https://en.wikipedia.org/wiki/Modular_exponentiation#Right-to-left_binary_method
+# Powmod ← ⊙◌∧(⊸˜◿×⊙˙×)⊙1+1×-1⊙(⇌⋯)
+# Slow Powmod - base exponent mod
+Powmod ← ⊙(◌◌)⍥⊸₂(˜Mod Mul)⊙One⊃⋅∘∘
+
 Gcd ← ⊙◌⍢(⤙˜Mod|Gt Zero◌) ∩Coerce
 Lcm ← Div⊃(Gcd|Abs Mul)∩Coerce
 
@@ -212,4 +217,6 @@ Fact ← |1 ⨬(Mul Fact⊸Sub One|⋅One)<0⊸Cmp[1 2]Coerce
   ⍤⤙≍ One Gcd 14 15
   ⍤⤙≍ 3 °Big Gcd 6 15
   ⍤⤙≍ 210 °Big Lcm 14 15
+
+  ⍤⤙≍ 6 °Big Powmod 2 4 10
 └─╴
