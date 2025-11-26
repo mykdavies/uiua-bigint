@@ -10,7 +10,7 @@ NegInf ← [¯∞]
 IsOdd  ← ⨬(◿2⊡1|⋅0)⊸(≍Zero)
 IsEven ← ¬ IsOdd
 # Remove leading zeros
-Nub ← ⍥(⋅[0])≍[]⟜∘⍜⇌(↘˜⨂0=0 ⟜∘)
+Nub ← ⍥(⋅[0])⊸(≍[])⍜⇌(↘˜⨂0⊸=₀)
 # Negate
 Neg ← ⍜⊢¯
 # int <-> BigInt
@@ -136,9 +136,10 @@ Pow ← ⍥Mul⊙(⟜∘)-1°Big∩Coerce
 Gcd ← ◌⍢(⤙˜Mod|Ne) ∩Coerce
 Lcm ← Div⊃(Gcd|Abs Mul)∩Coerce
 
-Fib′ ↚ |1 memo(⨬(Add ⊃(Fib′ Sub One|Fib′ Sub[1 2])|One)<1Cmp[1 2]⟜∘)
+Fib′ ↚ |1 memo(⨬(Add ⊃(Fib′ Sub One|Fib′ Sub[1 2])|One)<1⊸Cmp[1 2])
 Fib  ← |1 Fib′Coerce
-Fact ← |1 ⨬(Mul Fact Sub One⟜∘|⋅One)<0Cmp[1 2]⟜∘Coerce
+
+Fact ← |1 ⨬(Mul Fact⊸Sub One|⋅One)<0⊸Cmp[1 2]Coerce
 
 ┌─╴test
   ⍤⤙≍ [¯1 0 1] Big ¯10
