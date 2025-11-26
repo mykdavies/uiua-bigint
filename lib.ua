@@ -95,8 +95,10 @@ Mul ← (
 )
 
 # b mod a - scales for very large numbers.
-Mod ← Nub◌⍢(⟜(Sub⊂1↘2⍢(Mul10|Gt))|Gt) ∩Coerce
-
+Mod ← Nub⍥(⋅Zero)⊸Eq⍢(⟜(Sub⊂1↘2⍢(Mul10|Ge))|Ge) ∩Coerce
+⍤⤙≍ 1 °Big Mod 3 1
+⍤⤙≍ 2 °Big Mod 3 2
+⍤⤙≍ 0 °Big Mod 3 3
 # Do the core division. Slow for very different numbers.
 BaseDiv ↚ Coerce◌◌⍢(⊙⊙+₁⟜Sub|Ge) ⊙⊙0 ∩Coerce
 Div₁₀   ↚ ⍥(⋅[0])=1⊸⧻⍜°⊂⊙↘₁
@@ -133,7 +135,7 @@ Pow ← ⍥Mul⊙(⟜∘)-1°Big∩Coerce
 # e.g. 'Addition-chain exponentiation'
 # Pow ← ⊙◌◌⍢(Sub One⊙⊸Mul|Lt Zero) Sub One⊙(⟜∘)∩Coerce
 
-Gcd ← ◌⍢(⤙˜Mod|Ne) ∩Coerce
+Gcd ← ⊙◌⍢(⤙˜Mod|Gt Zero◌) ∩Coerce
 Lcm ← Div⊃(Gcd|Abs Mul)∩Coerce
 
 Fib′ ↚ |1 memo(⨬(Add ⊃(Fib′ Sub One|Fib′ Sub[1 2])|One)<1⊸Cmp[1 2])
@@ -206,5 +208,8 @@ Fact ← |1 ⨬(Mul Fact⊸Sub One|⋅One)<0⊸Cmp[1 2]Coerce
 
   ⍤⤙≍ 8 °Big Fib Big 6
   ⍤⤙≍ 120 °Big Fact Big 5
+
+  ⍤⤙≍ One Gcd 14 15
+  ⍤⤙≍ 3 °Big Gcd 6 15
   ⍤⤙≍ 210 °Big Lcm 14 15
 └─╴
