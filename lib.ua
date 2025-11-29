@@ -272,11 +272,17 @@ Fact ← |1 ⨬(Mul Fact⊸Sub One|⋅One)<0⊸Cmp[1 2]Coerce
 └─╴
 
 # Test key stuff again with big numbers.
-┌─╴test
-  VeryBig ← [1 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
-  Add [1 1] Mul VeryBig[1 0 0 0 0 0 0 2]
-  ⍤⤙≍ [1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2]
-  ⍤⤙≍ 1 °Big Mod 3 VeryBig
+# ┌─╴test
+#   VeryBig ← [1 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+#   Add [1 1] Mul VeryBig[1 0 0 0 0 0 0 2]
+#   ⍤⤙≍ [1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2]
+#   ⍤⤙≍ 1 °Big Mod 3 VeryBig
 
-  ⍤⤙≍ 200000000 °Big Div[1 0 0 0 0 5]VeryBig
+#   ⍤⤙≍ 200000000 °Big Div[1 0 0 0 0 5]VeryBig
+# └─╴
+
+# An array of bits, LSB first. Coerces n to positive first.
+Bits ← ⇌◌⍢(Div2⟜(⊂IsOdd)|Gt Zero)Abs⊙[]
+┌─╴test
+  ⍤⤙≍ [0 0 0 0 1] Bits [1 6 1]
 └─╴
