@@ -177,7 +177,7 @@ Mul₁₀   ↚ ⍜°⊂⊙(⊂0)
 
 # Find and apply biggest remaining scaled division.
 Div′ ↚ (
-  ⍢(⊙⊙Mul₁₀Mul₁₀|Gt)⊙⊙One
+  ⍢(⊙⊙Mul₁₀Mul₁₀|Ge)⊙⊙One
   Mul BaseDiv⊙⊙(Div₁₀)Div₁₀
 )
 
