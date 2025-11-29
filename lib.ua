@@ -1,6 +1,5 @@
-# ---BigInt ~ Add Big BigS Cmp Even Fact Fib Mul Odd One Sub Zero
-# A BigInt is a decimal little-endian array preceeded by a sign digit
-# [0] = zero, [-ve . . .] = negative [+ve ...] positive
+# A BigInt is a decimal little-endian array preceeded by a sign digit.
+# [0] = zero, [-1, . . .] = negative [+1 ...] positive, [inf] = infinity.
 
 One    ← [1 1]
 Zero   ← [0]
