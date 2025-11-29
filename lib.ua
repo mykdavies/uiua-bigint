@@ -251,12 +251,13 @@ Bits ← ⌅(
 # Slow Powmod - base exponent mod
 # Powmod ← ⊙(◌◌)⍥⊸₂(˜Mod Mul)⊙One⊃⋅∘∘
 
-Powmod′ ↚ ⊙◌∧(⊸˜Mod Mul⊙˙Mul)⊙One≡(Add One)×˜↯Sub One⊙(⊢⊸△⇌Bits)
+Powmod′ ↚ ⊙◌∧(⊸˜Mod Mul⊙˙Mul)⊙One⬚0≡(Add One)×˜↯Sub One⊙(⊢⊸△⇌Bits)
 
 # Fast powmod based on https://en.wikipedia.org/wiki/Modular_exponentiation#Right-to-left_binary_method
 Powmod ← Powmod′ ⊸₂(˜Mod⊙⋅∘)∩₃Coerce
 ┌─╴test
   ⍤⤙≍ 6 °Big Powmod 2 4 10
+  ⍤⤙≍ [1 0 2 8 9 9 9 9 9] Powmod[1 3 2 7 6 1 5 8 5][1 2][1 1 2 8 9 9 9 9 9]
 └─╴
 
 Min ← ⨬(⊙◌|◌)◡Lt
