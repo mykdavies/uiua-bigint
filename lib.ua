@@ -239,10 +239,22 @@ Pow ← ⍥Mul⊙(⟜∘)-1°Big∩Coerce
 # e.g. 'Addition-chain exponentiation'
 # Pow ← ⊙◌◌⍢(Sub One⊙⊸Mul|Lt Zero) Sub One⊙(⟜∘)∩Coerce
 
-# Fast powmod based on https://en.wikipedia.org/wiki/Modular_exponentiation#Right-to-left_binary_method
-# Powmod ← ⊙◌∧(⊸˜◿×⊙˙×)⊙1+1×-1⊙(⇌⋯)
+# An array of bits, LSB first. Coerces n to positive first.
+Bits ← ⌅(
+  ⇌◌⍢(Div2⟜(⊂IsOdd)|Gt Zero)Abs⊙[]Coerce
+| ∧(Add⊙(Mul2))⇌⊙Zero)
+┌─╴test
+  ⍤⤙≍ [0 0 0 0 1] Bits [1 6 1]
+  ⍤⤙≍ [1 6 1] °Bits [0 0 0 0 1]
+└─╴
+
 # Slow Powmod - base exponent mod
-Powmod ← ⊙(◌◌)⍥⊸₂(˜Mod Mul)⊙One⊃⋅∘∘
+# Powmod ← ⊙(◌◌)⍥⊸₂(˜Mod Mul)⊙One⊃⋅∘∘
+
+Powmod′ ↚ ⊙◌∧(⊸˜Mod Mul⊙˙Mul)⊙One≡(Add One)×˜↯Sub One⊙(⊢⊸△⇌Bits)
+
+# Fast powmod based on https://en.wikipedia.org/wiki/Modular_exponentiation#Right-to-left_binary_method
+Powmod ← Powmod′ ⊸₂(˜Mod⊙⋅∘)∩₃Coerce
 ┌─╴test
   ⍤⤙≍ 6 °Big Powmod 2 4 10
 └─╴
@@ -280,9 +292,3 @@ Fact ← |1 ⨬(Mul Fact⊸Sub One|⋅One)<0⊸Cmp[1 2]Coerce
 
 #   ⍤⤙≍ 200000000 °Big Div[1 0 0 0 0 5]VeryBig
 # └─╴
-
-# An array of bits, LSB first. Coerces n to positive first.
-Bits ← ⇌◌⍢(Div2⟜(⊂IsOdd)|Gt Zero)Abs⊙[]
-┌─╴test
-  ⍤⤙≍ [0 0 0 0 1] Bits [1 6 1]
-└─╴
