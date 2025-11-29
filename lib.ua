@@ -7,6 +7,7 @@ Zero   ← [0]
 NegOne ← [¯1 1]
 Inf    ← [∞]
 NegInf ← [¯∞]
+
 # Remove leading zeros
 Nub ← ⍥(⋅[0])⊸(≍[])⍜⇌(↘˜⨂0⊸=₀)
 ┌─╴test
@@ -33,6 +34,14 @@ BigS ← ⌅(
 
 # Ensure we're getting a BigInt, not a plain int.
 Coerce ↚ ⍥Big=0⧻⊸△
+
+# Return absolute value.
+Abs ← ⍜⊢⌵Coerce
+┌─╴test
+  ⍤⤙≍ One Abs Neg One
+  ⍤⤙≍ One Abs One
+  ⍤⤙≍ Zero Abs Zero
+└─╴
 
 CmpBare ↚ ⊢▽⊸≠0⇌±⬚0-
 # -1/0/1 ? a b - neg if a<b, pos if a>b, 0 if a=b
@@ -150,6 +159,15 @@ Mul ← (
   | Nub⍜⊢⋅∘⊃(Mul′∩⍜⊢⋅1|×∩⊢))
 )
 
+┌─╴test
+  ⍤⤙≍ ¯100 °Big Mul[¯1 5][1 0 2]
+  ⍤⤙≍ 0 °Big Mul[0][1 0 2]
+└─╴
+
+# 
+# Modulus etc
+# 
+
 # b mod a - scales for very large numbers.
 Mod ← Nub⍥(⋅Zero)⊸Eq⍢(⟜(Sub⊂1↘2⍢(Mul10|Ge))|Ge) ∩Coerce
 ┌─╴test
@@ -197,19 +215,21 @@ Div ← (
   | ⋅Zero °1(≍Inf)
   | Zero °1(≍Zero◌)
   | Inf °1(≍Inf◌)
+  | Zero °1(Lt∩Abs)
   | Nub⍜⊢⋅∘⊃(PosDiv∩⍜⊢⋅1|×∩⊢))
 )
+
 ┌─╴test
-  ⍤⤙≍ ¯100 °Big Mul[¯1 5][1 0 2]
-  ⍤⤙≍ 0 °Big Mul[0][1 0 2]
   ⍤⤙≍ 4 °Big Div[1 5][1 0 2]
   ⍤⤙≍ ¯4 °Big Div[¯1 5][1 0 2]
   ⍤⤙≍ ¯4 °Big Div[1 5][¯1 0 2]
-  ⍤⤙≍ 4 °Big Div[¯ 1 5][¯1 0 2]
+  ⍤⤙≍ 4 °Big Div[¯1 5][¯1 0 2]
+  ⍤⤙≍ 1 °Big Div[1 2][1 2]
+  ⍤⤙≍ Zero Div[1 2][1 1]
 └─╴
 
 # 
-# Powers, mods, abs, min, max
+# Powers, Powermod, min, max
 # 
 
 # base exponent
@@ -227,14 +247,10 @@ Powmod ← ⊙(◌◌)⍥⊸₂(˜Mod Mul)⊙One⊃⋅∘∘
   ⍤⤙≍ 6 °Big Powmod 2 4 10
 └─╴
 
-Abs ← ⍜⊢⌵Coerce
 Min ← ⨬(⊙◌|◌)◡Lt
 Max ← ⨬(⊙◌|◌)◡Gt
 
 ┌─╴test
-  ⍤⤙≍ One Abs Neg One
-  ⍤⤙≍ One Abs One
-  ⍤⤙≍ Zero Abs Zero
   ⍤⤙≍ Neg One Min One Neg One
   ⍤⤙≍ One Max One Neg One
 └─╴
